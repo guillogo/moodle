@@ -855,6 +855,7 @@ final class accesslib_test extends advanced_testcase {
         $this->resetAfterTest();
 
         $roleid = create_role('Counted role', 'countedrole', 'Role used for count checks', '');
+        $emptyroleid = create_role('Empty role', 'emptyrole', 'Role without assignments', '');
         $role = $DB->get_record('role', ['id' => $roleid], '*', MUST_EXIST);
         $user = $this->getDataGenerator()->create_user();
         $course = $this->getDataGenerator()->create_course();
@@ -867,6 +868,8 @@ final class accesslib_test extends advanced_testcase {
         $this->assertArrayHasKey($roleid, $roles);
         $this->assertSame($role->id, $roles[$roleid]->id);
         $this->assertSame(2, (int)$roles[$roleid]->count);
+        $this->assertArrayHasKey($emptyroleid, $roles);
+        $this->assertSame(0, (int)$roles[$emptyroleid]->count);
     }
 
     /**

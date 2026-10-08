@@ -3020,7 +3020,7 @@ function get_all_roles_with_counts() {
                    COALESCE(racounts.count, 0) AS count
               FROM {role} r
          LEFT JOIN (
-                    SELECT ra.roleid, COUNT(ra.userid) AS count
+                    SELECT ra.roleid, COUNT(*) AS count
                       FROM {role_assignments} ra
                   GROUP BY ra.roleid
                    ) racounts ON racounts.roleid = r.id
